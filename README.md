@@ -1,1 +1,2 @@
-# Voxomos-Internship-OCR-Project
+# OCR-Project
+

@@ -12,6 +12,17 @@ credentials_path = 'api-key.json'
 credentials = service_account.Credentials.from_service_account_file(credentials_path)
 client = vision.ImageAnnotatorClient(credentials=credentials)
 
+    def ocr(image):
+        image = vision.Image(content=image)
+        response = client.text_detection(image=image)
+        texts = response.text_annotations
+        if texts:
+            text = texts[0].description
+            text_with_newlines = text.replace("\n", " ")
+            return text_with_newlines
+        else:
+            return "No text found in the image."
+
 
     
 class OCR:
@@ -23,17 +34,6 @@ class OCR:
         self.bounding_boxes = []
         self.rows = []
         self.dataframe = None
-
-    def ocr(image):
-        image = vision.Image(content=image)
-        response = client.text_detection(image=image)
-        texts = response.text_annotations
-        if texts:
-            text = texts[0].description
-            text_with_newlines = text.replace("\n", " ")
-            return text_with_newlines
-        else:
-            return "No text found in the image."
 
     
 
